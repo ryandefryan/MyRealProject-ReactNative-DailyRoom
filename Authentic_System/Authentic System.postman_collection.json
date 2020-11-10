@@ -1,0 +1,587 @@
+{
+	"info": {
+		"_postman_id": "5340b47a-5eba-4e50-b596-fa31e7f1ccec",
+		"name": "Authentic System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register Account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"ryan.fandy@gmail.com\",\r\n    \"password\" : \"20121995\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/authentic-system/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"authentic-system",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Register Account Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ryan.fandy@gmail.com\",\r\n    \"password\" : \"20121995\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/authentic-system/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"authentic-system",
+								"register"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "52"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"34-j9o5GMXPB7hbWKf0fFuUo9JWwN4\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Sep 2020 03:30:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": true,\n    \"message\": \"( ! ) Email Already Exist\"\n}"
+				},
+				{
+					"name": "Register Account Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ryan.fandy@gmail.com\",\r\n    \"password\" : \"20121995\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/authentic-system/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"authentic-system",
+								"register"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "59"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3b-hKCy0dXLK/4P3YqY7MWHAe0XFlU\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Sep 2020 03:29:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": false,\n    \"message\": \"Email Confirmation Already Send\"\n}"
+				}
+			]
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"ryan.fandy@gmail.com\",\r\n    \"password\" : \"20121995\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/authentic-system/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"authentic-system",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "User Login Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ryan.fandy@gmail.com\",\r\n    \"password\" : \"20121995\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/authentic-system/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"authentic-system",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "35"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"23-GowNsf/tY7SRDdB1F1kNaVeDwzs\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Sep 2020 03:32:46 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": false,\n    \"message\": \"Success\"\n}"
+				},
+				{
+					"name": "User Login Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ryan.fandy@gmail.com\",\r\n    \"password\" : \"Password Wrong\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/authentic-system/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"authentic-system",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "67"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"43-CnSoN8kEX6qt3/wpx3YAbJb1Mvc\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Sep 2020 03:33:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": true,\n    \"message\": \"( ! ) Your Email / Password Do Not Match\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Confirmed Email Verification",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"14\",\r\n    \"password\" : \"57f5e3077262dbd6c16d1b13864eb5d062cee653f033b68abdb73b1b9f38e63a\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/authentic-system/confirmed-email-verification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"authentic-system",
+						"confirmed-email-verification"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Confirmed Email Verification Success",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"55\",\r\n    \"password\" : \"57f5e3077262dbd6c16d1b13864eb5d062cee653f033b68abdb73b1b9f38e63a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/authentic-system/confirmed-email-verification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"authentic-system",
+								"confirmed-email-verification"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "42"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2a-tV6iM27lAsls6YCtYEXniLd5O40\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 21 Sep 2020 03:32:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": false,\n    \"message\": \"Email Verified\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Activation Email Verification",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"14\",\r\n    \"password\" : \"57f5e3077262dbd6c16d1b13864eb5d062cee653f033b68abdb73b1b9f38e63a\",\r\n    \"activation_code\" : \"13043\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/authentic-system/activation-email-verification",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"authentic-system",
+						"activation-email-verification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check User Verify Status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyeWFuLmZhbmR5QGdtYWlsLmNvbSIsImVtYWlsX2NvbmZpcm1lZCI6MSwiaWF0IjoxNjAwODI2ODQ2fQ.1j_5hBEFzlZ7b8yeVRMAfMmsa4exU_DgTXk02UsXAxw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/authentic-system/user-verify-status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"authentic-system",
+						"user-verify-status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"task\" : \"Presentasi Produk Baru\",\r\n    \"description\" : \"Presentasi dengan Client dan Manager\",\r\n    \"date\" : \"2020-09-24\",\r\n    \"time\" : \"2020-09-24 00:26:13\",\r\n    \"token\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyeWFuLmZhbmR5QGdtYWlsLmNvbSIsImVtYWlsX2NvbmZpcm1lZCI6MCwiaWF0IjoxNjAwODg0ODc0fQ.2s39XVlKEKLoCP2-eMmt_fBI6yh5GUSguRfyKJEW6GU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/my-tasks/create-task",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"my-tasks",
+						"create-task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Tasks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\" : \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyeWFuLmZhbmR5QGdtYWlsLmNvbSIsImVtYWlsX2NvbmZpcm1lZCI6MCwiaWF0IjoxNjAwODg1ODM5fQ.YHkFoXe90QMUWY2k56to8nbqSVC2A97WyM9d2V1ZI24\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/my-tasks/get-all-tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"my-tasks",
+						"get-all-tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/my-tasks/delete-task/3/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyeWFuLmZhbmR5QGdtYWlsLmNvbSIsImVtYWlsX2NvbmZpcm1lZCI6MSwiaWF0IjoxNjAxMzAzNDM0fQ.DjUVOY-vmgDfuNfgnq-Mqqb2C16dkObV3g76c6ecBKg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"my-tasks",
+						"delete-task",
+						"3",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyeWFuLmZhbmR5QGdtYWlsLmNvbSIsImVtYWlsX2NvbmZpcm1lZCI6MSwiaWF0IjoxNjAxMzAzNDM0fQ.DjUVOY-vmgDfuNfgnq-Mqqb2C16dkObV3g76c6ecBKg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Task Done",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/my-tasks/update-task-done/3/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyeWFuLmZhbmR5QGdtYWlsLmNvbSIsImVtYWlsX2NvbmZpcm1lZCI6MSwiaWF0IjoxNjAxMzAzNDM0fQ.DjUVOY-vmgDfuNfgnq-Mqqb2C16dkObV3g76c6ecBKg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"my-tasks",
+						"update-task-done",
+						"3",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyeWFuLmZhbmR5QGdtYWlsLmNvbSIsImVtYWlsX2NvbmZpcm1lZCI6MSwiaWF0IjoxNjAxMzAzNDM0fQ.DjUVOY-vmgDfuNfgnq-Mqqb2C16dkObV3g76c6ecBKg"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

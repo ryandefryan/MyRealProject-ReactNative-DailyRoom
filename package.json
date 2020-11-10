@@ -1,0 +1,55 @@
+{
+  "name": "DailyRoom",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.2.2",
+    "@ant-design/icons-react-native": "^2.2.1",
+    "@react-native-async-storage/async-storage": "^1.13.0",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.9.2",
+    "@react-navigation/native": "^5.7.6",
+    "@react-navigation/stack": "^5.9.3",
+    "axios": "^0.21.0",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.31",
+    "native-base": "^2.13.14",
+    "react": "16.13.1",
+    "react-moment": "^1.0.0",
+    "react-native": "0.63.3",
+    "react-native-calendar-picker": "^7.0.2",
+    "react-native-calendars": "^1.403.0",
+    "react-native-gesture-handler": "^1.8.0",
+    "react-native-modal": "^11.5.6",
+    "react-native-onesignal": "^3.9.2",
+    "react-native-reanimated": "^1.13.1",
+    "react-native-safe-area-context": "^3.1.8",
+    "react-native-screens": "^2.11.0",
+    "react-native-toast-native": "^1.2.1",
+    "react-native-vector-icons": "^7.1.0",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "validator": "^13.1.17"
+  },
+  "devDependencies": {
+    "@babel/core": "7.12.3",
+    "@babel/runtime": "7.12.1",
+    "@react-native-community/eslint-config": "1.1.0",
+    "babel-jest": "25.5.1",
+    "eslint": "6.8.0",
+    "jest": "25.5.4",
+    "metro-react-native-babel-preset": "0.59.0",
+    "react-test-renderer": "16.13.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

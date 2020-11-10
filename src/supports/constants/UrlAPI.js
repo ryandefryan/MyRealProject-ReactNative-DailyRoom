@@ -1,0 +1,1 @@
+export const UrlAPI = 'http://192.168.100.45:4000'
