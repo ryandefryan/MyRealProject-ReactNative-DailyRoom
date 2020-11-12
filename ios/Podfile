@@ -14,6 +14,8 @@ target 'DailyRoom' do
 
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'DailyRoomTests' do
     inherit! :complete
     # Pods for testing

@@ -11,5 +11,6 @@ Router.post('/user-verify-status', jwtVerify, authenticController.userVerifyStat
 Router.post('/testmail', authenticController.testingSendEmailVerification)
 Router.get('/user-profile/:token', authenticController.getUserProfile)
 Router.patch('/update-user-profile/:token', authenticController.updateUserProfile)
+Router.patch('/update-image-profile/:token', authenticController.updateImageProfile)
 
 module.exports = Router

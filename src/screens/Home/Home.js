@@ -56,7 +56,7 @@ const Home = ({navigation, onSetFilterCityName, filterHotel}) => {
                                         <Input value={filterHotel.cityName} onChangeText={onSetFilterCityName} placeholder='Hotel Location' style={{paddingVertical: 0}} />
                                     </Item>
                                 </Row>
-                                <Row style={{...Spacing.pyThree}}>
+                                <Row style={{...Spacing.pyFour}}>
                                     <Row style={{flex: 7, ...Spacing.prTwo}}>
                                         <Item style={{width: '100%'}}>
                                             <Icon name='calendar' style={{...Spacing.pxThree, ...Font.fsFive, ...Color.darkBlue}} />
@@ -72,10 +72,10 @@ const Home = ({navigation, onSetFilterCityName, filterHotel}) => {
                                 <Row style={{width: '100%'}}>
                                     <Item style={{width: '100%'}}>
                                         <Icon name='user' style={{...Spacing.pxThree, ...Font.fsFive, ...Color.darkBlue}} />
-                                        <Input placeholder='1 Kamar, 1 Dewasa, 0 Anak' style={{paddingVertical: 0}} />
+                                        <Input placeholder='1 Room, 2 Adult, 0 Child' style={{paddingVertical: 0}} />
                                     </Item>
                                 </Row>
-                                <Row style={{...Spacing.ptFour, ...Spacing.pbOne}}>
+                                <Row style={{...Spacing.ptFour, ...Spacing.ptFive, ...Spacing.pbFive}}>
                                     <Button rounded onPress={onSearchHotels} style={{width: '100%', ...Color.bgSecondary}} block>
                                         <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleLight, ...Color.primary}}>
                                             Search Hotel
@@ -86,17 +86,7 @@ const Home = ({navigation, onSetFilterCityName, filterHotel}) => {
                         </CardItem>
                     </Card>
                 </Grid>
-                <Grid style={{...Spacing.pxThree, ...Spacing.pyFive}}>
-                    <Row style={{marginHorizontal: 3}}>
-                        <Row>
-                            <Image source={PromoBanner} style={{width: 175, height: 80}} />
-                        </Row>
-                        <Row style={{justifyContent: 'flex-end'}}>
-                            <Image source={PayLaterBanner} style={{width: 175, height: 80}} />
-                        </Row>
-                    </Row>
-                </Grid>
-                <Grid style={{...Spacing.pxFive, ...Spacing.pyFour, ...Color.bgLightGrey}}>
+                <Grid style={{...Spacing.mtSeven, ...Spacing.pxFive, ...Spacing.pyFour, ...Color.bgLightGrey}}>
                     <Row>
                         <Text>
                             Quick Search

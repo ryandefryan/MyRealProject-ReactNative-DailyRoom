@@ -6,6 +6,7 @@ const db = require('./../database/MySQL.js');
 const hashPassword = require('./../helpers/Hash.js');
 const transporter = require('./../helpers/Transporter.js');
 const activationCode = require('./../helpers/ActivationCode.js');
+const singleUpload = require('./../helpers/SingleUpload.js')();
 
 // ############### REGISTER WITH AUTHENTIC SYSTEM ###############
 const register = (req, res) => {
@@ -493,6 +494,65 @@ const updateUserProfile = (req, res) => {
     })
 }
 
+
+
+// ############### UPDATE IMAGE PROFILE ###############
+const updateImageProfile = (req, res) => {
+    const token = req.params.token
+
+    singleUpload(req, res, (err) => {
+        try {
+            if(err) throw err
+
+            // Step2. Request Validation for Filtering & Filtering If File Does Not Exist
+            if(req.filteringValidation)  throw { message : req.filteringValidation } 
+            if(req.file === undefined) throw { message : 'File Not Found'}
+           
+            // Step3. Get Image Path
+            var imagePath = '/' + req.file.path
+            imagePath = imagePath.replace(/\\/g, '/')
+            console.log(imagePath)
+
+            jwt.verify(token, '123abc', (err, dataToken) => {
+                try {
+                    if(err) throw err
+
+                    // Step5. Insert Data Input From User to "Table Products"
+                    db.query('UPDATE users SET image = ? WHERE id = ?;', [imagePath, dataToken.id], (err, result) => {
+                        try {
+                            if(err) throw err
+                            
+                            res.json({
+                                error : false, 
+                                message : 'Update Image Success',
+                                data : result
+                            })
+                        } catch (error) {
+                            res.json({
+                                error : true, 
+                                message : 'Error When Insert Data Product',
+                                detail : error
+                            })
+                        }
+                    })
+                } catch (error) {
+                    res.json({
+                        error : true,
+                        message : error.message,
+                        detail : error
+                    })
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            res.json({
+                error : true, 
+                message : error.message
+            })
+        }
+    })
+}
+
 module.exports = {
     register : register, 
     confirmedEmailVerification : confirmedEmailVerification,
@@ -501,5 +561,6 @@ module.exports = {
     userVerifyStatus : userVerifyStatus,
     testingSendEmailVerification : testingSendEmailVerification,
     getUserProfile : getUserProfile,
-    updateUserProfile : updateUserProfile
+    updateUserProfile : updateUserProfile,
+    updateImageProfile : updateImageProfile
 }

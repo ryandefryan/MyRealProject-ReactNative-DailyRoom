@@ -1,20 +1,57 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImagePicker from 'react-native-image-picker';
 
+import { UrlAPI } from './../../supports/constants/UrlAPI.js';
 import { getMyProfile } from './../../redux/actions/UserProfileAction.js';
 import { onLogout } from './../../redux/actions/UserAction.js';
 
 import { Body, Button, Card, Col, Container, Content, Grid, Header, Left, Right, Row, Spinner, Text, Title } from 'native-base';
+import { Image } from 'react-native';
 import Color from './../../stylesheets/Color.js';
 import Spacing from './../../stylesheets/Spacing.js';
 import Font from './../../stylesheets/Typography.js';
 
 const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
 
+    const [photo, setPhoto] = useState(null)
+    const [photoLoading, setPhotoLoading] = useState(false)
+
     useEffect(() => {
         getMyProfile(user.token)
     }, [])
+
+    const onChangeImageProfile = () => {
+        ImagePicker.showImagePicker({storageOptions: {privateDirectory: true}}, (response) => {
+            console.log('Response = ', response)
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+              } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+              } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+              } else {
+                setPhoto({uri : response.uri, name : response.fileName, size : response.fileSize, type : response.type})
+                setPhotoLoading(true)
+              }
+        })
+    }
+
+    const onSaveImageProfile = () => {
+        let fd = new FormData()
+        fd.append('image', photo)
+
+        Axios.patch( UrlAPI + '/authentic-system/update-image-profile/' + user.token, fd)
+        .then((res) => { 
+            setPhotoLoading(false)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 
     if(myProfile.data === null){
         return(
@@ -69,19 +106,34 @@ const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
                     <Card style={{width: '100%', ...Spacing.pxFive, ...Spacing.pyFive}}>
                         <Row>
                             <Row>
-                                <Text style={{fontWeight: '700', ...Font.fsFive}}>
-                                    
-                                    {
-                                        myProfile.data[0].fullname === null || myProfile.data[0].fullname === ''?
-                                            myProfile.data[0].email
-                                        :
-                                            myProfile.data[0].fullname
-                                    }
-                                </Text>
+                                {
+                                    photo?
+                                        <Image 
+                                            source={{uri : photo.uri}}
+                                            style={{width : 50, height : 50, borderRadius: 100}}
+                                        />
+                                    :
+                                        <Image 
+                                            source={{uri : UrlAPI + myProfile.data[0].image}}
+                                            style={{width : 50, height : 50, borderRadius: 100}}
+                                        />
+
+                                }
                             </Row>
                             <Row style={{justifyContent: 'flex-end', alignItems: 'center'}}>
                                 <Icon name='pencil' onPress={() => navigation.navigate('MyDetailAccount')} style={{...Font.fsFive, ...Color.primary}} />
                             </Row>
+                        </Row>
+                        <Row>
+                            <Text style={{fontWeight: '700', ...Font.fsFive}}>
+                                
+                                {
+                                    myProfile.data[0].fullname === null || myProfile.data[0].fullname === ''?
+                                        myProfile.data[0].email
+                                    :
+                                        myProfile.data[0].fullname
+                                }
+                            </Text>
                         </Row>
                         {
                             myProfile.data[0].fullname === null || myProfile.data[0].address === null || myProfile.data[0].phone === null || myProfile.data[0].fullname === '' || myProfile.data[0].address === '' || myProfile.data[0].phone === ''?
@@ -104,6 +156,24 @@ const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
                             <Text>
                                 You Earn<Text style={{...Font.fStyleBold, ...Color.primary}}> 0 Point</Text>
                             </Text>
+                        </Row>
+                        <Row style={{...Spacing.ptThree}}>
+                            {
+                                photoLoading?
+                                        <Row>
+                                            <Button rounded onPress={onSaveImageProfile} style={{width: '100%', ...Color.bgSecondary}} block>
+                                                <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleLight, ...Color.primary}}>
+                                                    Save
+                                                </Text>
+                                            </Button>
+                                        </Row>
+                                :
+                                    <Button rounded onPress={onChangeImageProfile} style={{width: '100%', ...Color.bgSecondary}} block>
+                                        <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleLight, ...Color.primary}}>
+                                            Change Image Profile
+                                        </Text>
+                                    </Button>
+                            }
                         </Row>
                     </Card>
                 </Grid>

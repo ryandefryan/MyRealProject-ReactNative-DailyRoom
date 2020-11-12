@@ -31,49 +31,12 @@ const App = ({user, onSaveToken}) => {
     getStorageData()
   }, [])
 
-  useEffect(() => {
-    OneSignal.setLogLevel(6, 0);
-
-    OneSignal.init('3c2ef2b0-f8a3-4963-9bfc-995589f3dcd5', {
-      kOSSettingsKeyAutoPrompt : false, 
-      kOSSettingsKeyInAppLaunchURL: false, 
-      kOSSettingsKeyInFocusDisplayOption:2
-    });
-
-    OneSignal.inFocusDisplaying(2);
-
-    OneSignal.addEventListener('received', this.onReceived);
-    OneSignal.addEventListener('opened', this.onOpened);
-    OneSignal.addEventListener('ids', this.onIds);
-
-    return() => {
-      OneSignal.removeEventListener('received', this.onReceived);
-      OneSignal.removeEventListener('opened', this.onOpened);
-      OneSignal.removeEventListener('ids', this.onIds);
-    }
-  }, [])
-
-  const onReceived = (notification) => {
-    console.log("Notification received: ", notification);
-  }
-
-  function onOpened(openResult) {
-    console.log('Message: ', openResult.notification.payload.body);
-    console.log('Data: ', openResult.notification.payload.additionalData);
-    console.log('isActive: ', openResult.notification.isAppInFocus);
-    console.log('openResult: ', openResult);
-  }
-
-  const onIds = (device) => {
-    console.log('Device info: ', device);
-  }
-
-
   if(isStorageChecked === false){
     return(
       <SplashScreen />
     )
   }
+  
   return(
     <NavigationContainer>
       {

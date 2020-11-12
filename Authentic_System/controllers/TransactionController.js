@@ -2,6 +2,8 @@ const db = require('./../database/MySQL.js');
 const dbAsync = require('./../database/MySQLAsync.js');
 const jwt = require('jsonwebtoken');
 
+const sendNotification = require('./../helpers/SendNotification.js');
+
 module.exports = {
     onBookingHotel : (req, res) => {
         let data = req.body
@@ -89,6 +91,37 @@ module.exports = {
 
 
 
+    onPaymentApproved : (req, res) => {
+        let data = req.body
+
+        db.query('UPDATE transactions SET status = "Success" WHERE id = ? AND user_id = ?', [data.id, req.dataToken.id], (err, result) => {
+            try {
+                if(err) throw err
+
+                db.query(`DROP event auto_cancel_transaction_${data.id}`, (err, result) => {
+                    try {
+                        if(err) throw err
+
+                        let dataNotif = {
+                            app_id: "3c2ef2b0-f8a3-4963-9bfc-995589f3dcd5",
+                            contents: {"en": "Transaction Approved"},
+                            channel_for_external_user_ids: "push",
+                            include_external_user_ids: [data.token]
+                        }
+
+                        sendNotification(dataNotif, res)
+                    } catch (error) {
+                        console.log(error)
+                    }
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        })
+    },
+    
+    
+    
     getMyBookings : (req, res) => {
         console.log(req.params.token)
         const token = req.params.token

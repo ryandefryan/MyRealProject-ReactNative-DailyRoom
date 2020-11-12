@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment-timezone';
+import CountDown from 'react-native-countdown-component';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Body, Button, Card, CardItem, Col, Container, Content, Grid, Header, Input, Item, Left, Right, Row, Spinner, Text, Title } from 'native-base';
@@ -11,8 +12,10 @@ import Font from './../../stylesheets/Typography.js';
 
 const Payment = ({ navigation, booking }) => {
 
+    const [totalDuration, setTotalDuration] = useState(0);
+
     useEffect(() => {
-        console.log(booking.data)
+        console.log('@ScreenPayment: ' + booking.data)
     }, [])
 
     if(booking.data === null){
@@ -59,9 +62,15 @@ const Payment = ({ navigation, booking }) => {
             <Content>
                 <Grid style={{...Spacing.pyThree, ...Color.bgDark}}>
                     <Row style={{justifyContent: 'center'}}>
-                        <Text style={{...Font.fsTwo, ...Color.light}}>
-                            Complete Your Booking Before {moment(booking.data.data[0].expired_at).format('D MMMM YYYY, h:mm:ss A')}
+                        <Text style={{...Spacing.mrOne, ...Font.fsTwo, ...Color.light}}>
+                            Complete Your Booking In 
                         </Text>
+                        <CountDown
+                            until={1800}
+                            timeToShow={['M', 'S']}
+                            timeLabels={{m: null, s: null}}
+                            size={8}
+                        />
                     </Row>
                 </Grid>
                 <Grid style={{borderWidth: 1, borderRadius: 5, borderColor: '#c6c6c6', ...Spacing.mtFive, ...Spacing.mxFive, ...Spacing.pyOne}}>
