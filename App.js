@@ -31,6 +31,28 @@ const App = ({user, onSaveToken}) => {
     getStorageData()
   }, [])
 
+  const homeConfig = {
+    path : "Home",
+    screens : {
+      Home : 'Home',
+      Inbox : {
+        path: 'Inbox/:id',
+        params: {
+          id: null
+        }
+      }
+    }
+  }
+
+  const linkingOptions = {
+    prefixes : ['https://dailyroomApp.com','dailyroomApp://'],
+    config : {
+        Home: homeConfig,
+        Bookings: 'Bookings',
+        Account : "Account"  
+    }
+  }
+
   if(isStorageChecked === false){
     return(
       <SplashScreen />
@@ -38,7 +60,7 @@ const App = ({user, onSaveToken}) => {
   }
   
   return(
-    <NavigationContainer>
+    <NavigationContainer linking={linkingOptions}>
       {
         user.token !== '' ?
           <MainRouter />

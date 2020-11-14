@@ -50,7 +50,7 @@ const HotelLists = ({navigation, route, getAllHotels, hotels, onSetNewStartDateF
     return(
         <Container>
             <Header style={{...Color.bgPrimary}}>
-                <Left style={{marginLeft: 10}}>
+                <Left style={{marginLeft: 8}}>
                     <Button transparent onPress={() => navigation.goBack()}>
                         <Icon name='chevron-left' style={{...Font.fsThree, ...Color.light}} />
                     </Button>
@@ -70,7 +70,7 @@ const HotelLists = ({navigation, route, getAllHotels, hotels, onSetNewStartDateF
                 {
                     hotels.error?
                         <Grid style={{height: 614}}>
-                            <Row style={{justifyContent: 'center', alignItems: 'flex-end', ...Spacing.pyThree}}>
+                            <Row style={{justifyContent: 'center', alignItems: 'flex-end', ...Spacing.pxZero, ...Spacing.pyThree}}>
                                 <Icon name='wifi' style={{...Font.fsSeven, ...Color.darkGrey}} />
                             </Row>
                             <Row style={{justifyContent: 'center', alignItems: 'flex-start'}}>
@@ -88,12 +88,12 @@ const HotelLists = ({navigation, route, getAllHotels, hotels, onSetNewStartDateF
                             renderData()
                         :
                             <Grid style={{height: 614}}>
-                                <Row style={{justifyContent: 'center', alignItems: 'flex-end', ...Spacing.pyThree}}>
+                                <Row style={{justifyContent: 'center', alignItems: 'flex-end', ...Spacing.pxZero, ...Spacing.pyThree}}>
                                     <Icon name='times-circle' style={{...Font.fsSeven, ...Color.danger}} />
                                 </Row>
                                 <Row style={{justifyContent: 'center', alignItems: 'flex-start'}}>
                                     <Text style={{...Font.fStyleBold}}>
-                                        Hotel Not Found In {stateFilterHotel.cityName} Area
+                                        Hotel Not Found In {filterHotel.cityName} Area
                                     </Text>
                                 </Row>
                             </Grid>

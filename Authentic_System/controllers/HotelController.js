@@ -79,7 +79,7 @@ module.exports = {
             res.send({
                 error: false,
                 message: 'Fetch Data Success',
-                hotel: dataHotel,
+                hotel: dataHotel[0],
                 rooms: dataRooms,
                 facilites: dataHotelFacilities,
                 detailImages

@@ -21,15 +21,14 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
 
     const onContinuePayment = () => {
         onBookingRoom(dataBooking)
-
-        navigation.navigate('Payment')
+        navigation.navigate('PaymentMethod')
     }
 
     if(dataBooking === null){
         return(
             <Container>
                 <Header style={{...Color.bgPrimary}}>
-                    <Left style={{marginLeft: 10}}>
+                    <Left style={{marginLeft: 8}}>
                         <Button transparent onPress={() => navigation.goBack()}>
                             <Icon name='chevron-left' style={{...Font.fsThree, ...Color.light}} />
                         </Button>
@@ -73,22 +72,22 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                             Booking Details
                         </Text>
                     </Row>
-                    <Row style={{borderWidth: 1, borderRadius: 5, borderColor: '#c6c6c6', ...Spacing.mtFive, ...Spacing.pxFour, ...Spacing.pyFour}}>
+                    <Row style={{borderWidth: 1, borderRadius: 5, borderColor: '#c6c6c6', ...Spacing.mtFive, ...Spacing.mbZero, ...Spacing.pxFour, ...Spacing.pyFour}}>
                         <Col style={{flex: 8}}>
                             <Row style={{flex: 4}}>
                                 <Image source={{uri: UrlAPI + '/supports/images/public/Room_Images/' + dataBooking.room_image_url}} style={{width: '100%', height: 100, borderRadius: 3}} />
                             </Row>
-                            <Row style={{...Spacing.pxThree, ...Spacing.ptThree}}>
+                            <Row style={{...Spacing.pxThree, ...Spacing.ptThree, ...Spacing.pbZero}}>
                                 <Text style={{...Font.fsFour, ...Font.fStyleBold}}>
                                     {dataBooking.hotel_name}
                                 </Text>
                             </Row>
-                            <Row style={{...Spacing.pxThree}}>
+                            <Row style={{...Spacing.pxThree, ...Spacing.pyZero}}>
                                 <Text style={{...Font.fsFour, ...Color.darkGrey}}>
                                     {dataBooking.room_name}
                                 </Text>
                             </Row>
-                            <Row style={{...Spacing.pxThree}}>
+                            <Row style={{...Spacing.pxThree, ...Spacing.pyZero}}>
                                 <Text style={{...Font.fsFour, ...Color.darkGrey}}>
                                     1 Room, {dataBooking.night}
                                 </Text>
@@ -107,7 +106,7 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                             </Text>
                         </Row>
                     </Row>
-                    <Row style={{...Spacing.ptOne}}>
+                    <Row style={{...Spacing.ptOne, ...Spacing.pbZero}}>
                         <Row>
                             <Text style={{...Font.fsFour, ...Font.fStyleLight}}>
                                 Check-out
@@ -119,35 +118,35 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                             </Text>
                         </Row>
                     </Row>
-                    <Row style={{...Spacing.ptSeven}}>
+                    <Row style={{...Spacing.ptSeven, ...Spacing.pbZero}}>
                         <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
                             Contact Details
                         </Text>
                     </Row>
-                    <Row style={{...Spacing.ptFive}}>
+                    <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Item style={{width: '100%', borderRadius: 5}} regular>
                             <Input onChangeText={fullname_guest => setDataBooking({...dataBooking, fullname_guest: fullname_guest})} placeholder='Name' />
                         </Item>
                     </Row>
                     <Row>
-                        <Text style={{...Color.darkGrey}}>
+                        <Text style={{...Font.fsTwo, ...Color.darkGrey}}>
                             As on ID/passport/driver's license (without degree)
                         </Text>
                     </Row>
-                    <Row style={{...Spacing.ptFive}}>
+                    <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Item style={{width: '100%', borderRadius: 5}} regular>
                             <Input onChangeText={address_guest => setDataBooking({...dataBooking, address_guest: address_guest})} placeholder='Address' />
                         </Item>
                     </Row>
                     <Row>
-                        <Text style={{...Color.darkGrey}}>
+                        <Text style={{...Font.fsTwo, ...Color.darkGrey}}>
                             Address
                         </Text>
                     </Row>
                     <Row style={{borderBottomWidth: 1, borderColor: '#c6c6c6', ...Spacing.mtSeven}}>
 
                     </Row>
-                    <Row style={{...Spacing.ptFive}}>
+                    <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Row>
                             <Text style={{...Font.fsFive, ...Font.fStyleLight}}>
                                 Total
@@ -155,11 +154,11 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                         </Row>
                         <Row style={{justifyContent: 'flex-end'}}>
                             <Text style={{...Font.fsFive, ...Font.fStyleBold, ...Color.darkBlue}}>
-                                Rp.{Number(dataBooking.night.split(' ')[0]) * dataBooking.room_price}
+                                Rp.{dataBooking.total}
                             </Text>
                         </Row>
                     </Row>
-                    <Row style={{...Spacing.ptFive}}>
+                    <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Button rounded onPress={onContinuePayment} style={{width: '100%', ...Color.bgSecondary}} block>
                             <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleLight, ...Color.primary}}>
                                 {

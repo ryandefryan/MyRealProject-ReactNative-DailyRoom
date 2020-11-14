@@ -15,26 +15,26 @@ const GetStarted = ({ navigation }) => {
     return(
         <Container>
             <Content>
-                <Grid style={{...Spacing.ptTen}}>
+                <Grid style={{...Spacing.ptEight, ...Spacing.pbZero}}>
                     <Row style={{justifyContent: 'center'}}>
                         <Image source={ImageBackground} style={{width: 425, height: 300, borderRadius: 5}} />
                     </Row>
                 </Grid>
-                <Grid style={{...Spacing.pxFive}}>
+                <Grid style={{...Spacing.pxFive, ...Spacing.pyZero}}>
                     <Row style={{justifyContent: 'center'}}>
                         <Text style={{textAlign: 'center', ...Font.fsEight, ...Font.fStyleBold, ...Color.dark}}>
                             Welcome To Our Apps!
                         </Text>
                     </Row>
-                    <Row style={{justifyContent: 'center', ...Spacing.ptFive}}>
+                    <Row style={{justifyContent: 'center', ...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Text style={{textAlign: 'center', ...Font.fsFive, ...Color.darkGrey}}>
                             The Best Apps For Book Your Room Every Where You Want! 
                             Earn Points Every Book In Our Apps.
                         </Text>
                     </Row>
                 </Grid>
-                <Grid style={{marginTop: 30, ...Spacing.pxSeven, ...Spacing.ptSix}}>
-                    <Row style={{...Spacing.pyThree}}>
+                <Grid style={{marginTop: 30, ...Spacing.pxSeven, ...Spacing.ptThree, ...Spacing.pbZero}}>
+                    <Row style={{...Spacing.pxZero, ...Spacing.pyThree}}>
                         <Button rounded onPress={() => navigation.navigate('Login')} style={{width: '100%', ...Color.bgPrimary}} block>
                             <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleBold}}>
                                 Login

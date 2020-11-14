@@ -1,5 +1,6 @@
 const { StyleSheet } = require('react-native');
 
+const Zero = 0
 const One = 5
 const Two = 8
 const Three = 10
@@ -12,6 +13,52 @@ const Nine = 50
 const Ten = 65
 
 const spacing = StyleSheet.create({
+    pZero : {
+        padding : Zero
+    },
+    ptZero : {
+        paddingTop : Zero
+    },
+    pbZero : {
+        paddingBottom : Zero
+    },
+    plZero : {
+        paddingLeft : Zero
+    },
+    prZero : {
+        paddingRight : Zero
+    },
+    pxZero : {
+        paddingHorizontal : Zero
+    },
+    pyZero : {
+        paddingVertical : Zero
+    },
+
+    mZero : {
+        margin : Zero
+    },
+    mtZero : {
+        marginTop : Zero
+    },
+    mbZero : {
+        marginBottom : Zero
+    },
+    mlZero : {
+        marginLeft : Zero
+    },
+    mrZero : {
+        marginRight : Zero
+    },
+    mxZero : {
+        marginHorizontal : Zero
+    },
+    myZero : {
+        marginVertical : Zero
+    },
+
+
+
     pOne : {
         padding : One
     },

@@ -18,7 +18,7 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
         console.log('@ScreenHotelDetail: ' + dataHotel.idHotel)
 
         let idHotel = dataHotel.idHotel
-        getDetailHotel(idHotel, filterHotel.newStartDateFormat, filterHotel.newEndDateFormat)
+        getDetailHotel(route.params.idHotel, filterHotel.newStartDateFormat, filterHotel.newEndDateFormat)
     }, [])
 
     const onSelectRoom = (idRoom, roomName, roomPrice, room_image_url) => {
@@ -29,10 +29,11 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
             address_guest: null,
             night: filterHotel.night,
             room_id: idRoom,
-            hotel_name: detailHotel.data.hotel[0].name,
+            hotel_name: detailHotel.data.hotel.name,
             room_name: roomName,
             room_price: roomPrice,
             room_image_url: room_image_url,
+            total: Number(String(filterHotel.night.split(' ')[0])) * Number(roomPrice),
             token: user.token
         }
 
@@ -53,15 +54,15 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
 
     const renderData = () => {
         return(
-            <Container key={detailHotel.data.hotel[0].id}>
+            <Container key={detailHotel.data.hotel.id}>
                 <Header style={{...Color.bgPrimary}}>
-                    <Left style={{marginLeft: 10}}>
+                    <Left style={{marginLeft: 8}}>
                         <Button transparent onPress={() => navigation.goBack()}>
                             <Icon name='chevron-left' style={{...Font.fsThree, ...Color.light}} />
                         </Button>
                     </Left>
                     <Body style={{marginLeft: -85}}>
-                        <Title style={{marginTop: -3}}>{detailHotel.data.hotel[0].name}</Title>
+                        <Title style={{marginTop: -3}}>{detailHotel.data.hotel.name}</Title>
                     </Body>
                 </Header>
                 <Content>
@@ -76,10 +77,10 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
                                 Hotel
                             </Text>
                         </Row>
-                        <Row style={{...Spacing.ptOne}}>
+                        <Row style={{...Spacing.ptOne, ...Spacing.pbZero}}>
                             <Row style={{flex: 11}}>
                                 <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
-                                    {detailHotel.data.hotel[0].name}
+                                    {detailHotel.data.hotel.name}
                                 </Text>
                             </Row>
                             <Row style={{flex: 3, justifyContent: 'flex-end', alignItems: 'center'}}>
@@ -88,10 +89,10 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
                         </Row>
                         <Row style={{alignItems: 'center'}}>
                             {
-                                renderStar(detailHotel.data.hotel[0].star)
+                                renderStar(detailHotel.data.hotel.star)
                             }
                             <Text style={{...Color.dark}}>
-                                {detailHotel.data.hotel[0].address.split(',')[2]}, {detailHotel.data.hotel[0].city}
+                                {detailHotel.data.hotel.address.split(',')[2]}, {detailHotel.data.hotel.city}
                             </Text>
                         </Row>
                     </Grid>
@@ -106,7 +107,7 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
                                 Common Facilities
                             </Text>
                         </Row>
-                        <Row style={{...Spacing.ptFive, ...Spacing.pbTwo}}>
+                        <Row style={{...Spacing.ptFive, ...Spacing.pbThree}}>
                             {
                                 detailHotel.data.facilites.map((value, index) => {
                                     return(
@@ -123,7 +124,7 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
 
                         </Row>
                     </Grid>
-                    <Grid style={{...Spacing.pxFive, ...Spacing.ptFive}}>
+                    <Grid style={{...Spacing.pxFive, ...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Row>
                             <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
                                 Select Room
@@ -147,7 +148,7 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <Row style={{justifyContent: 'flex-start', ...Spacing.ptThree}}>
+                                            <Row style={{justifyContent: 'flex-start', ...Spacing.ptThree, ...Spacing.pbZero}}>
                                                 <Text style={{...Font.fsFour, ...Color.primary}}>
                                                     Rp.{value.price}
                                                 </Text>
@@ -158,7 +159,7 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
                                                 </Text>
                                             </Row>
                                         </Col>
-                                        <Row style={{justifyContent: 'flex-end', ...Spacing.ptThree}}>
+                                        <Row style={{justifyContent: 'flex-end', ...Spacing.ptThree, ...Spacing.pbZero}}>
                                             {
                                                 value.room_left > 0?
                                                     <Button rounded onPress={() => onSelectRoom(value.id, value.name, value.price, value.room_image_url.split(',')[0])} style={{width: '65%', height: '65%', ...Color.bgSecondary}} block>

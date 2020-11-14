@@ -29,42 +29,42 @@ const Register = ({ navigation, user, onUserRegister }) => {
                     </Row>
                 </Grid>
                 <Grid>
-                    <Row style={{...Spacing.pxFive}}>
+                    <Row style={{...Spacing.pxFive, ...Spacing.pyZero}}>
                         <Text style={{...Font.fsEight, ...Font.fStyleBold}}>
                             Create
                         </Text>
                     </Row>
-                    <Row style={{...Spacing.pxFive}}>
+                    <Row style={{...Spacing.pxFive, ...Spacing.pyZero}}>
                         <Text style={{...Font.fsEight, ...Font.fStyleBold}}>
                             Your Account!
                         </Text>
                     </Row>
-                    <Row style={{...Spacing.pxFive, ...Spacing.ptTwo}}>
+                    <Row style={{...Spacing.pxFive, ...Spacing.ptThree, ...Spacing.pbZero}}>
                         <Text style={{...Font.fsThree, ...Color.darkGrey}}>
                             Fill Your Data Below!
                         </Text>
                     </Row>
                 </Grid>
-                <Grid style={{...Spacing.ptNine}}>
-                    <Row style={{...Spacing.pxFour}}>
+                <Grid style={{...Spacing.ptEight, ...Spacing.pbZero}}>
+                    <Row style={{...Spacing.pxFive, ...Spacing.pyZero}}>
                         <Item style={{width: '99%'}}>
                             <Input onChangeText={email => setEmail(email)} placeholder='Email' />
                             <Icon name='envelope-open' style={{...Font.fsFour, ...Color.primary}} />
                         </Item>
                     </Row>
-                    <Row style={{...Spacing.pxFour, ...Spacing.ptFive}}>
+                    <Row style={{...Spacing.pxFive, ...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Item style={{width: '99%'}}>
                             <Input secureTextEntry={true} onChangeText={password => setPassword(password)} placeholder='Password' />
                             <Icon name='eye' style={{...Font.fsFour, ...Color.primary}} />
                         </Item>
                     </Row>
-                    <Row style={{...Spacing.pxFour, ...Spacing.ptFive}}>
+                    <Row style={{...Spacing.pxFive, ...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Item style={{width: '99%'}}>
                             <Input secureTextEntry={true} onChangeText={confirmPassword => setConfirmPassword(confirmPassword)} placeholder='Confirm Password' style={{borderColor: '#000'}} />
                             <Icon name='eye' style={{...Font.fsFour, ...Color.primary}} />
                         </Item>
                     </Row>
-                    <Row style={{...Spacing.pxFour}}>
+                    <Row style={{...Spacing.pxFive, ...Spacing.ptFive, ...Spacing.pbZero}}>
                         {
                             user.error?           
                                 <Text style={{...Font.fsTwo, ...Color.danger}}>
@@ -75,7 +75,7 @@ const Register = ({ navigation, user, onUserRegister }) => {
                         }
                     </Row>
                 </Grid>
-                <Grid style={{...Spacing.pxFour, ...Spacing.ptSix}}>
+                <Grid style={{...Spacing.pxFive, ...Spacing.ptFive, ...Spacing.pbFive}}>
                     <Row>
                         <Button rounded onPress={onSubmitRegister} disabled={user.loading} style={{width: '100%', ...Color.bgPrimary}} block>
                             <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleBold}}>
@@ -89,19 +89,19 @@ const Register = ({ navigation, user, onUserRegister }) => {
                         </Button>
                     </Row>
                 </Grid>
-                <Grid style={{...Spacing.pxFour, ...Spacing.ptEight}}>
+                <Grid style={{...Spacing.pxFive, ...Spacing.ptFive, ...Spacing.pbFive}}>
                     <Row style={{justifyContent: 'center'}}>
                         <Text style={{textAlign: 'center', ...Color.darkGrey}}>
                             ────── Or Sign Up With ──────
                         </Text>
                     </Row>
-                    <Row style={{justifyContent: 'center', ...Spacing.ptFive}}>
-                        <Icon name='google' style={{backgroundColor: '#ff4b4c', paddingHorizontal: 12, paddingVertical: 10, borderRadius: 100, ...Spacing.mxFive, ...Font.fsFive, ...Color.light}} />
-                        <Icon name='facebook' style={{backgroundColor: '#0064d2', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 100, ...Spacing.mxFive, ...Font.fsFive, ...Color.light}} />
-                        <Icon name='twitter' style={{backgroundColor: '#00a8ff', paddingHorizontal: 11, paddingVertical: 10, borderRadius: 100, ...Spacing.mxFive, ...Font.fsFive, ...Color.light}} />
+                    <Row style={{justifyContent: 'center', ...Spacing.ptFive, ...Spacing.pbZero}}>
+                        <Icon name='google' style={{backgroundColor: '#ff4b4c', paddingHorizontal: 12, paddingVertical: 10, borderRadius: 100, ...Spacing.mxFive, ...Spacing.myZero, ...Font.fsFive, ...Color.light}} />
+                        <Icon name='facebook' style={{backgroundColor: '#0064d2', paddingHorizontal: 15, paddingVertical: 10, borderRadius: 100, ...Spacing.mxFive, ...Spacing.myZero, ...Font.fsFive, ...Color.light}} />
+                        <Icon name='twitter' style={{backgroundColor: '#00a8ff', paddingHorizontal: 11, paddingVertical: 10, borderRadius: 100, ...Spacing.mxFive, ...Spacing.myZero, ...Font.fsFive, ...Color.light}} />
                     </Row>
                 </Grid>
-                <Grid style={{...Spacing.pyNine}}>
+                <Grid style={{...Spacing.pxZero, ...Spacing.pyFive}}>
                     <Row>
                         <Text style={{width: '100%', textAlign: 'center'}}>Already Have Account?<Text onPress={() => navigation.navigate('Login')} style={{width: '100%', textAlign: 'center', ...Font.fStyleBold}}> Login.</Text></Text>
                     </Row>

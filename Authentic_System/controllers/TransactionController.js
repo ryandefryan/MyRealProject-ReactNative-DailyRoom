@@ -1,11 +1,12 @@
 const db = require('./../database/MySQL.js');
 const dbAsync = require('./../database/MySQLAsync.js');
+const redis = require('./../database/Redis.js');
 const jwt = require('jsonwebtoken');
 
 const sendNotification = require('./../helpers/SendNotification.js');
 
 module.exports = {
-    onBookingHotel : (req, res) => {
+    onBookingRoom : (req, res) => {
         let data = req.body
         const token = data.token
         
@@ -23,7 +24,8 @@ module.exports = {
                     room_id: data.room_id,
                     hotel_name: data.hotel_name,
                     room_name: data.room_name,
-                    room_price: data.room_price
+                    room_price: data.room_price,
+                    total: data.total
                 }
                 
                 sqlQuery1 = `INSERT INTO transactions SET ?`
@@ -31,7 +33,7 @@ module.exports = {
                     try {
                         if(err) throw err
 
-                        sqlQuery2 = `SELECT t.id, u.id as user_id, h.name as hotel_name, r.hotel_id, r.name as room_name, r.price as room_price, t.check_in as check_in, t.check_out as check_out, t.expired_at as expired_at, t.status as status, GROUP_CONCAT(DISTINCT(ri.url)) AS room_image_url FROM transactions t
+                        sqlQuery2 = `SELECT t.id, u.id AS user_id, h.name AS hotel_name, r.hotel_id, r.name AS room_name, r.price AS room_price, t.check_in AS check_in, t.check_out AS check_out, t.expired_at AS expired_at, t.status AS status, t.total AS total, GROUP_CONCAT(DISTINCT(ri.url)) AS room_image_url FROM transactions t
                                      JOIN rooms r ON t.room_id = r.id
                                      JOIN room_images ri ON t.room_id = ri.room_id
                                      JOIN hotels h ON r.hotel_id = h.id
@@ -45,7 +47,7 @@ module.exports = {
                                 if(err) throw err
                                 
                                 sqlQuery3 = `CREATE EVENT auto_cancel_transaction_${insertResult.insertId}
-                                             ON SCHEDULE AT DATE_ADD(NOW(), INTERVAL 30 MINUTE)
+                                             ON SCHEDULE AT DATE_ADD(NOW(), INTERVAL 15 SECOND)
                                              DO
                                                 UPDATE transactions set status = 'Cancelled' where id = ${insertResult.insertId};`
                                 db.query(sqlQuery3, (err, createEventResult) => {
@@ -123,43 +125,80 @@ module.exports = {
     
     
     getMyBookings : (req, res) => {
-        console.log(req.params.token)
-        const token = req.params.token
+        db.query(`SELECT t.id, u.id as user_id, h.name as hotel_name, r.hotel_id, r.name as room_name, r.price as room_price, t.check_in as check_in, t.check_out as check_out, t.expired_at as expired_at, t.status as status, GROUP_CONCAT(DISTINCT(ri.url)) AS room_image_url FROM transactions t
+                    JOIN rooms r ON t.room_id = r.id
+                    JOIN room_images ri ON t.room_id = ri.room_id
+                    JOIN hotels h ON r.hotel_id = h.id
+                    JOIN users u ON t.user_id = u.id
+                    WHERE u.id = ?
+                    GROUP BY t.id
+                    ORDER BY t.created_at DESC;`, req.dataToken.id, (err, result) => {
+            try {
+                if(err) throw err
+                
+                res.send({
+                    error: false,
+                    message : 'Fetch Data Success',
+                    data : result
+                })
+            } catch (error) {
+                res.send({
+                    error: true,
+                    message : error.message
+                })
+            }
+        })
+    },
 
-        jwt.verify(token, '123abc', (err, dataToken) => {
+
+
+    getMyBookingsWithRedis : (req, res) => {
+        var start = Date.now()
+
+        redis.get('allTransactions', (err, redisDataResult) => {
             try {
                 if(err) throw err
 
-                db.query(`SELECT t.id, u.id as user_id, h.name as hotel_name, r.hotel_id, r.name as room_name, r.price as room_price, t.check_in as check_in, t.check_out as check_out, t.expired_at as expired_at, t.status as status, GROUP_CONCAT(DISTINCT(ri.url)) AS room_image_url FROM transactions t
-                          JOIN rooms r ON t.room_id = r.id
-                          JOIN room_images ri ON t.room_id = ri.room_id
-                          JOIN hotels h ON r.hotel_id = h.id
-                          JOIN users u ON t.user_id = u.id
-                          WHERE u.id = ?
-                          GROUP BY t.id
-                          ORDER BY t.created_at DESC;`, dataToken.id, (err, result) => {
-                    try {
-                        if(err) throw err
-                        
-                        res.send({
-                            error: false,
-                            message : 'Fetch Data Success',
-                            data : result
-                        })
-                    } catch (error) {
-                        res.send({
-                            error: true,
-                            message : error.message
-                        })
-                    }
-                })
-                } catch (error) {
-                    res.json({
-                        error : true,
-                        message : error.message,
-                        detail : error
+                if(redisDataResult){
+                    var end = Date.now()
+                    var responTime = end - start
+
+                    var redisDataResultParsed = JSON.parse(redisDataResult)
+                    res.send({
+                        error: false, 
+                        responTime: responTime,
+                        redisDataResultParsed
+                    })
+                }else{
+                    db.query('SELECT * FROM transactions', (err, result) => {
+                        try {
+                            if(err) throw err
+
+                            var end = Date.now()
+                            var responTime = end - start
+
+                            var dbDataResultString = JSON.stringify(result)
+                            redis.set('allTransactions', dbDataResultString, (err, ok) => {
+                                try {
+                                    if(err) throw err
+
+                                    res.send({
+                                        error: false, 
+                                        responTime: responTime,
+                                        result
+                                    })
+                                } catch (error) {
+                                    console.log(error)
+                                }
+                            })
+                        } catch (error) {
+                            console.log(error)
+                        }
                     })
                 }
+            } catch (error) {
+                console.log(error)
+            }
         })
     }
 }

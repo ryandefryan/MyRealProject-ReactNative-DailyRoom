@@ -40,20 +40,20 @@ export default HotelListsCard = ({index, onPress, name, address, city, price, st
                                 {name}
                             </Text>
                         </Row>
-                        <Row style={{...Spacing.ptOne}}>
+                        <Row style={{...Spacing.ptOne, ...Spacing.pbZero}}>
                             {renderStar(star)}
                         </Row>
-                        <Row style={{...Spacing.ptOne}}>
+                        <Row style={{...Spacing.ptOne, ...Spacing.pbZero}}>
                             <Text style={{...Color.darkGrey}}>
                                 <Icon name='map-marker' style={{...Spacing.pxThree, ...Font.fsThree, ...Color.darkGrey}} />{address.split(',')[2]}
                             </Text>
                         </Row>
-                        <Row style={{...Spacing.ptTwo}}>
+                        <Row style={{...Spacing.ptThree, ...Spacing.pbZero}}>
                             <Text style={{borderTopRightRadius: 5, borderBottomLeftRadius: 5, borderBottomRightRadius: 5, ...Color.bgPrimary, ...Color.light, ...Spacing.pxOne, ...Spacing.pyOne}}>
                                 4.5
                             </Text>
                         </Row>
-                        <Row style={{justifyContent: 'flex-end', ...Spacing.ptTen}}>
+                        <Row style={{justifyContent: 'flex-end', ...Spacing.ptTen, ...Spacing.pbZero}}>
                             <Text style={{...Font.fsFour, ...Color.primary}}>
                                 Rp.{price}
                             </Text>

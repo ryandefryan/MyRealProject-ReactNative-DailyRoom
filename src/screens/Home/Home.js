@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import 'moment-timezone';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -11,8 +13,6 @@ import Color from './../../stylesheets/Color.js';
 import Spacing from './../../stylesheets/Spacing.js';
 import Font from './../../stylesheets/Typography.js';
 import DailyRoomLogo from './../../supports/images/DailyRoomLogo.png';
-import PromoBanner from './../../supports/images/PromoImage.png';
-import PayLaterBanner from './../../supports/images/PayLaterImage.png';
 import Monas from './../../supports/images/Monas.jpg';
 import GedungSate from './../../supports/images/GedungSate.jpg';
 import CandiBorobudur from './../../supports/images/CandiBorobudur.jpg';
@@ -46,24 +46,24 @@ const Home = ({navigation, onSetFilterCityName, filterHotel}) => {
                         
                     </Row>
                 </Grid>
-                <Grid style={{alignSelf: 'center', marginTop: -40, ...Spacing.pxThree}}>
-                    <Card style={{width: '98%', borderRadius: 3, }}>
+                <Grid style={{alignSelf: 'center', marginTop: -40, ...Spacing.pxThree, ...Spacing.pyZero}}>
+                    <Card style={{width: '98%', borderRadius: 3}}>
                         <CardItem>
                             <Body>
-                                <Row style={{width: '100%'}}>
+                                <Row style={{width: '100%', ...Spacing.ptOne, ...Spacing.pbZero}}>
                                     <Item style={{width: '100%'}}>
-                                        <Icon name='map-marker' style={{...Spacing.pxThree, ...Font.fsFive, ...Color.darkBlue}} />
+                                        <Icon name='map-marker' style={{...Spacing.pxThree, ...Spacing.pyZero, ...Font.fsFive, ...Color.darkBlue}} />
                                         <Input value={filterHotel.cityName} onChangeText={onSetFilterCityName} placeholder='Hotel Location' style={{paddingVertical: 0}} />
                                     </Item>
                                 </Row>
-                                <Row style={{...Spacing.pyFour}}>
-                                    <Row style={{flex: 7, ...Spacing.prTwo}}>
+                                <Row style={{...Spacing.pxZero, ...Spacing.pyThree}}>
+                                    <Row style={{flex: 7, ...Spacing.prOne, ...Spacing.plZero}}>
                                         <Item style={{width: '100%'}}>
-                                            <Icon name='calendar' style={{...Spacing.pxThree, ...Font.fsFive, ...Color.darkBlue}} />
+                                            <Icon name='calendar' style={{...Spacing.pxThree, ...Spacing.pyZero, ...Font.fsFive, ...Color.darkBlue}} />
                                             <Input onTouchStart={() => navigation.navigate('DatePicker')} placeholder={String(filterHotel.startDate)} style={{paddingVertical: 0}} />
                                         </Item>
                                     </Row>
-                                    <Row style={{flex: 5, ...Spacing.plTwo}}>
+                                    <Row style={{flex: 5, ...Spacing.plOne, ...Spacing.prZero}}>
                                         <Item style={{width: '100%'}}>
                                             <Input placeholder={String(filterHotel.night)} style={{paddingVertical: 0}} disabled />
                                         </Item>
@@ -71,11 +71,11 @@ const Home = ({navigation, onSetFilterCityName, filterHotel}) => {
                                 </Row>
                                 <Row style={{width: '100%'}}>
                                     <Item style={{width: '100%'}}>
-                                        <Icon name='user' style={{...Spacing.pxThree, ...Font.fsFive, ...Color.darkBlue}} />
+                                        <Icon name='user' style={{...Spacing.pxThree, ...Spacing.pyZero, ...Font.fsFive, ...Color.darkBlue}} />
                                         <Input placeholder='1 Room, 2 Adult, 0 Child' style={{paddingVertical: 0}} />
                                     </Item>
                                 </Row>
-                                <Row style={{...Spacing.ptFour, ...Spacing.ptFive, ...Spacing.pbFive}}>
+                                <Row style={{...Spacing.pxZero, ...Spacing.pyFive}}>
                                     <Button rounded onPress={onSearchHotels} style={{width: '100%', ...Color.bgSecondary}} block>
                                         <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleLight, ...Color.primary}}>
                                             Search Hotel
@@ -86,14 +86,14 @@ const Home = ({navigation, onSetFilterCityName, filterHotel}) => {
                         </CardItem>
                     </Card>
                 </Grid>
-                <Grid style={{...Spacing.mtSeven, ...Spacing.pxFive, ...Spacing.pyFour, ...Color.bgLightGrey}}>
+                <Grid style={{...Spacing.mtSix, ...Spacing.mbZero, ...Spacing.pxFive, ...Spacing.pyFour, ...Color.bgLightGrey}}>
                     <Row>
                         <Text>
                             Quick Search
                         </Text>
                     </Row>
                 </Grid>
-                <Grid style={{...Spacing.pySix, justifyContent: 'center'}}>
+                <Grid style={{justifyContent: 'center', ...Spacing.pxZero, ...Spacing.pySix}}>
                     <Row>
                         <Row style={{flex: 3, justifyContent: 'center'}}>
                             <Image source={Monas} style={{width: 60, height: 60, borderRadius: 100}} />

@@ -5,7 +5,7 @@ import OneSignal from 'react-native-onesignal';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeRouter from './HomeRouter.js';
-import MyBookings from './../screens/MyBookings/MyBookings.js';
+import Bookings from './../screens/MyBookings/MyBookings.js';
 import Account from './AccountRouter.js';
 
 const Tab = createBottomTabNavigator()
@@ -75,7 +75,6 @@ const MainRouter = ({ user }) => {
                 marginBottom: 3
               }}}
         >
-            {/* <Tab.Screen name='Splash' component={Splash} /> */}
             <Tab.Screen name='Home'
                 options={{tabBarIcon: (props) => {
                     return(
@@ -84,13 +83,13 @@ const MainRouter = ({ user }) => {
                 }}}
                 component={HomeRouter} 
             />
-            <Tab.Screen name='My Bookings' 
+            <Tab.Screen name='Bookings' 
                 options={{tabBarIcon: (props) => {
                     return(
                         <Icon name='list' size={props.size} color={props.color} />
                     )
                 }}}
-                component={MyBookings} 
+                component={Bookings} 
             />
             <Tab.Screen name='Account' 
                 options={{tabBarIcon: (props) => {

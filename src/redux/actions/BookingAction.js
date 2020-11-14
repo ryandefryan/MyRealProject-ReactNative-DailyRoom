@@ -10,8 +10,7 @@ export const onBookingRoom = (data) => {
         })
 
         try {
-            let res = await Axios.post(UrlAPI + '/transactions/booking-hotel', data)
-            console.log('@BookingAction: ' + res.data)
+            let res = await Axios.post(UrlAPI + '/transactions/booking-room', data)
             dispatch({
                 type: BOOKING_SUCCESS,
                 payload: res.data
@@ -27,14 +26,14 @@ export const onBookingRoom = (data) => {
 
 export const getMyBookings = (token) => {
     return async (dispatch) => {
-        console.log('@BookingAction: ' + token)
         dispatch({
             type: BOOKING_LOADING 
         })
 
         try {
-            let res = await Axios.get(UrlAPI + '/transactions/get-my-bookings/' + token)
-            console.log('@BookingAction: ' + res.data)
+            console.log('@BookingAction: ' + token)
+            let res = await Axios.post(UrlAPI + '/transactions/get-my-bookings', {token})
+            console.log(res.data)
             dispatch({
                 type: BOOKING_SUCCESS,
                 payload: res.data

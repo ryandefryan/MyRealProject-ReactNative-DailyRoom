@@ -99,10 +99,10 @@ const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
                 </Right>
             </Header>
             <Content>
-                <Grid style={{...Color.bgPrimary, ...Spacing.pyEight}}>
+                <Grid style={{...Color.bgPrimary, ...Spacing.pxZero, ...Spacing.pyEight}}>
 
                 </Grid>
-                <Grid style={{marginTop: -75, ...Spacing.pxFive}}>
+                <Grid style={{marginTop: -75, ...Spacing.pxFive, ...Spacing.pyZero}}>
                     <Card style={{width: '100%', ...Spacing.pxFive, ...Spacing.pyFive}}>
                         <Row>
                             <Row>
@@ -151,13 +151,13 @@ const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
                                     </Text>
                                 </Row>
                         }
-                        <Row style={{...Spacing.ptThree}}>
+                        <Row style={{...Spacing.ptThree, ...Spacing.pbZero}}>
                             <Icon name='product-hunt' style={{marginTop: 3, ...Spacing.mrOne, ...Font.fsFive, ...Color.secondary}} />
                             <Text>
                                 You Earn<Text style={{...Font.fStyleBold, ...Color.primary}}> 0 Point</Text>
                             </Text>
                         </Row>
-                        <Row style={{...Spacing.ptThree}}>
+                        <Row style={{...Spacing.ptThree, ...Spacing.pbZero}}>
                             {
                                 photoLoading?
                                         <Row>
@@ -177,7 +177,7 @@ const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
                         </Row>
                     </Card>
                 </Grid>
-                <Grid style={{...Spacing.plFive, ...Spacing.prFour, ...Spacing.ptFive}}>
+                <Grid style={{...Spacing.plFive, ...Spacing.prFour, ...Spacing.ptFive, ...Spacing.pbZero}}>
                     <Row>
                         <Text style={{...Font.fsTwo}}>
                             Earn Point Every Book Your Room in Daily Room
@@ -187,7 +187,7 @@ const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
 
                     </Row>
                 </Grid>
-                <Grid style={{...Spacing.plFive, ...Spacing.prFour, ...Spacing.ptThree}}>
+                <Grid style={{...Spacing.plFive, ...Spacing.prFour, ...Spacing.ptThree, ...Spacing.pbZero}}>
                     <Card style={{width: '100%', ...Spacing.pxFive, ...Spacing.pyThree}}>
                         <Row>
                             <Icon name='question-circle' style={{marginTop: 5, ...Spacing.mrOne, ...Font.fsSix, ...Color.primary}} />
@@ -197,7 +197,7 @@ const MyAccount = ({ navigation, onLogout, user, myProfile, getMyProfile }) => {
                         </Row>
                     </Card>
                 </Grid>
-                <Grid style={{...Spacing.pyEight}}>
+                <Grid style={{...Spacing.pxZero, ...Spacing.pyEight}}>
                     <Row style={{borderWidth: 5, borderColor: '#f2f2f2'}}>
 
                     </Row>
