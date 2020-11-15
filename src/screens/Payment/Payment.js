@@ -70,7 +70,7 @@ const Payment = ({ navigation, route, booking }) => {
                 <Grid style={{...Spacing.pxZero, ...Spacing.pyThree, ...Color.bgDark}}>
                     <Row style={{justifyContent: 'center'}}>
                         <Text style={{...Spacing.mrOne, ...Font.fsTwo, ...Color.light}}>
-                            Complete Your Booking In 
+                            Complete Your Payment Within
                         </Text>
                         <CountDown
                             until={countExpired}

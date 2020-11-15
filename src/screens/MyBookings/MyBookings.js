@@ -11,7 +11,9 @@ import Color from './../../stylesheets/Color.js';
 import Spacing from './../../stylesheets/Spacing.js';
 import Font from './../../stylesheets/Typography.js';
 
-const MyBookings = ({ navigation, user, booking, getMyBookings }) => {
+const MyBookings = ({ navigation, user, route, booking, getMyBookings }) => {
+
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
         getMyBookings(user.token)

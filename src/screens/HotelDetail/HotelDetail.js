@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { getDetailHotel } from './../../redux/actions/DetailHotelAction.js';
 
-import { Body, Button, Card, CardItem, Col, Container, Content, Grid, Header, Left, Right, Row, Spinner, Text, Title } from 'native-base';
+import { Body, Button, Card, CardItem, Col, Container, Content, Grid, Header, Left, List, ListItem, Right, Row, Spinner, Text, Title } from 'native-base';
 import Color from './../../stylesheets/Color.js';
 import Spacing from './../../stylesheets/Spacing.js';
 import Font from './../../stylesheets/Typography.js';
@@ -107,7 +107,7 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
                                 Common Facilities
                             </Text>
                         </Row>
-                        <Row style={{...Spacing.ptFive, ...Spacing.pbThree}}>
+                        <Row style={{...Spacing.ptThree, ...Spacing.pbThree}}>
                             {
                                 detailHotel.data.facilites.map((value, index) => {
                                     return(
@@ -117,6 +117,54 @@ const HotelDetail = ({ navigation, route, user, detailHotel, getDetailHotel, fil
                                     )
                                 })
                             }
+                        </Row>
+                    </Grid>
+                    <Grid>
+                        <Row style={{borderBottomWidth: 5, borderColor: '#f2f2f2'}}>
+
+                        </Row>
+                    </Grid>
+                    <Grid style={{...Spacing.pxFive, ...Spacing.pyFive}}>
+                        <Row>
+                            <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
+                                About Accomodation
+                            </Text>
+                        </Row>
+                        <Row style={{borderWidth: 1, borderRadius: 5, borderColor: '#f2f2f2', ...Spacing.mtThree, ...Spacing.mbZero}}>
+                            <Row style={{marginTop: -6, marginBottom: -6}}>
+                                <List>
+                                    <ListItem style={{borderColor: '#ffffff'}}>
+                                        <Text style={{...Color.darkGrey}}>
+                                            Check-In Time
+                                        </Text>
+                                    </ListItem>
+                                    <ListItem style={{marginTop: -30, borderColor: '#f2f2f2'}}>
+                                        <Text style={{...Font.fsFive, ...Font.fStyleBold, ...Color.dark}}>
+                                            14:00
+                                        </Text>
+                                    </ListItem>
+                                </List>
+                            </Row>
+                            <Row style={{marginTop: -6, marginBottom: -6}}>
+                                <List>
+                                    <ListItem style={{borderColor: '#ffffff'}}>
+                                        <Text style={{...Color.darkGrey}}>
+                                            Check-Out Time
+                                        </Text>
+                                    </ListItem>
+                                    <ListItem style={{marginTop: -30, borderColor: '#f2f2f2'}}>
+                                        <Text style={{...Font.fsFive, ...Font.fStyleBold, ...Color.dark}}>
+                                            12:00
+                                        </Text>
+                                    </ListItem>
+                                </List>
+                            </Row>
+                        </Row>
+                        <Row style={{...Spacing.pxZero, ...Spacing.pyThree}}>
+                            <Icon name='check-circle' style={{marginTop: 3, marginBottom: 0, color: '#00c847', ...Font.fsFour}} />
+                            <Text style={{...Spacing.mlOne, ...Spacing.mrZero, ...Color.dark}}>
+                                Want To Check-In Early? Arrange Check-In Time With The Accomodation
+                            </Text>
                         </Row>
                     </Grid>
                     <Grid>

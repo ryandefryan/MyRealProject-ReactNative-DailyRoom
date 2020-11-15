@@ -4,27 +4,36 @@ import { UrlAPI } from './../../supports/constants/UrlAPI.js';
 import { Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { getMyProfile } from './../../redux/actions/UserProfileAction.js';
 import { onBookingRoom } from '../../redux/actions/BookingAction.js';
 
-import { Body, Button, Card, CardItem, Col, Container, Content, Grid, Header, Input, Item, Left, Right, Row, Spinner, Text, Title } from 'native-base';
+import { Body, Button, Card, CardItem, Col, Container, Content, Form, Grid, Header, Input, Item, Label, Left, List, ListItem, Right, Row, Spinner, Text, Title, View } from 'native-base';
+import Modal from 'react-native-modal';
 import Color from './../../stylesheets/Color.js';
 import Spacing from './../../stylesheets/Spacing.js';
 import Font from './../../stylesheets/Typography.js';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
+const FormBooking = ({ navigation, route, user, myProfile, getMyProfile, booking, onBookingRoom }) => {
 
     const [dataBooking, setDataBooking] = useState(null)
+    const [isModalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
+        getMyProfile(user.token)
         setDataBooking(route.params.dataBooking)
     }, [])
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+      };
 
     const onContinuePayment = () => {
         onBookingRoom(dataBooking)
         navigation.navigate('PaymentMethod')
     }
 
-    if(dataBooking === null){
+    if(myProfile.data === null || dataBooking === null){
         return(
             <Container>
                 <Header style={{...Color.bgPrimary}}>
@@ -97,7 +106,7 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                     <Row style={{...Spacing.ptFive}}>
                         <Row>
                             <Text style={{...Font.fsFour, ...Font.fStyleLight}}>
-                                Check-in
+                                Check-In
                             </Text>
                         </Row>
                         <Row style={{justifyContent: 'flex-end'}}>
@@ -109,7 +118,7 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                     <Row style={{...Spacing.ptOne, ...Spacing.pbZero}}>
                         <Row>
                             <Text style={{...Font.fsFour, ...Font.fStyleLight}}>
-                                Check-out
+                                Check-Out
                             </Text>
                         </Row>
                         <Row style={{justifyContent: 'flex-end'}}>
@@ -118,32 +127,108 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                             </Text>
                         </Row>
                     </Row>
-                    <Row style={{...Spacing.ptSeven, ...Spacing.pbZero}}>
+                    <Row style={{backgroundColor: '#fdfbfb', borderWidth: 1, borderColor: '#f2f2f2', borderRadius: 5, ...Spacing.mtFive, ...Spacing.mbZero}}>
+                        <Row style={{flex: 4}}>
+                            <List>
+                                <ListItem style={{borderColor: '#f2f2f2'}}>
+                                    <Text style={{...Font.fStyleBold, ...Color.dark}}>
+                                        Free Cancellation
+                                    </Text>
+                                </ListItem>
+                                <ListItem style={{marginTop: -30, borderColor: '#f2f2f2'}}>
+                                    <Text style={{...Font.fsTwo, ...Color.dark}}>
+                                        Valid Until 20 December 2020
+                                    </Text>
+                                </ListItem>
+                            </List>
+                        </Row>
+                        <Row style={{justifyContent: 'flex-end', ...Spacing.pxFive, ...Spacing.pyFive}}>
+                            <Text style={{...Font.fStyleBold, ...Color.darkBlue}}>
+                                Details
+                            </Text>
+                        </Row>
+                    </Row>
+                    <Row style={{borderBottomWidth: 1, borderColor: '#c6c6c6', ...Spacing.mtZero, ...Spacing.mbOne}}>
+                        <Text style={{...Font.fStyleBold, ...Spacing.mxZero, ...Spacing.myThree}}>
+                            Check-In Procedure
+                        </Text>
+                    </Row>
+                    <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
                         <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
                             Contact Details
                         </Text>
                     </Row>
-                    <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
-                        <Item style={{width: '100%', borderRadius: 5}} regular>
-                            <Input onChangeText={fullname_guest => setDataBooking({...dataBooking, fullname_guest: fullname_guest})} placeholder='Name' />
-                        </Item>
+                    <Row style={{borderRadius: 5, ...Spacing.mtThree, ...Spacing.mbZero, ...Color.bgLightGrey}}>
+                        <Row style={{flex: 11}}>
+                            <List>
+                                <ListItem style={{borderColor: '#f2f2f2'}}>
+                                    <Text style={{...Font.fStyleBold, ...Color.dark}}>
+                                        {myProfile.data[0].fullname}
+                                    </Text>
+                                </ListItem>
+                                <ListItem style={{marginTop: -30, borderColor: '#f2f2f2'}}>
+                                    <Text style={{...Color.dark}}>
+                                        {myProfile.data[0].email}
+                                    </Text>
+                                </ListItem>
+                                <ListItem style={{marginTop: -28, borderColor: '#f2f2f2'}}>
+                                    <Text style={{...Color.dark}}>
+                                        {myProfile.data[0].phone}
+                                    </Text>
+                                </ListItem>
+                            </List>
+                        </Row>
+                        <Row style={{justifyContent: 'flex-end', ...Spacing.pxFive, ...Spacing.pyFive}}>
+                            <Icon name='pencil' style={{...Font.fsFive, ...Color.darkBlue}} />
+                        </Row>
                     </Row>
-                    <Row>
-                        <Text style={{...Font.fsTwo, ...Color.darkGrey}}>
-                            As on ID/passport/driver's license (without degree)
+                    <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
+                        <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
+                            Guest Details
                         </Text>
                     </Row>
+                    <TouchableOpacity activeOpacity={1} onPress={toggleModal}>
+                        <Row style={{borderRadius: 5, ...Spacing.mtThree, ...Spacing.pxFour, ...Spacing.pyFour, ...Color.bgLightGrey}}>
+                            <Row style={{flex: 11}}>
+                                {
+                                    dataBooking.fullname_guest?
+                                        <Text style={{...Font.fStyleBold, ...Color.dark}}>
+                                            1 Room: ({dataBooking.fullname_guest})
+                                        </Text>
+                                    :
+                                        <Text style={{...Font.fStyleBold, ...Color.darkBlue}}>
+                                            1 Room: (Guest Name)
+                                        </Text>
+                                }
+                            </Row>
+                            <Row style={{justifyContent: 'flex-end'}}>
+                                <Icon name='pencil' style={{...Font.fsFive, ...Color.darkBlue}} />
+                            </Row>
+                        </Row>
+                    </TouchableOpacity>
                     <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
-                        <Item style={{width: '100%', borderRadius: 5}} regular>
-                            <Input onChangeText={address_guest => setDataBooking({...dataBooking, address_guest: address_guest})} placeholder='Address' />
-                        </Item>
-                    </Row>
-                    <Row>
-                        <Text style={{...Font.fsTwo, ...Color.darkGrey}}>
-                            Address
+                        <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
+                            Special Request
                         </Text>
                     </Row>
-                    <Row style={{borderBottomWidth: 1, borderColor: '#c6c6c6', ...Spacing.mtSeven}}>
+                    <Row style={{...Spacing.pbZero}}>
+                        <Text style={{...Font.fsThree, ...Color.darkGrey}}>
+                            Have Any Requests To Make Your Stay More Comfortable? Ask Here!
+                        </Text>
+                    </Row>
+                    <Row style={{borderRadius: 5, ...Spacing.mtThree, ...Spacing.mbTwo, ...Spacing.pxFour, ...Spacing.pyFour, ...Color.bgLightGrey}}>
+                        <Row style={{flex: 10}}>
+                            <Text style={{...Font.fStyleBold, ...Color.darkBlue}}>
+                                Make Special Request
+                            </Text>
+                        </Row>
+                        <Row style={{justifyContent: 'flex-end'}}>
+                            <Text style={{...Font.fStyleBold, ...Color.darkBlue}}>
+                                Add
+                            </Text>
+                        </Row>
+                    </Row>
+                    <Row style={{borderBottomWidth: 1, borderColor: '#c6c6c6', ...Spacing.mtSeven, ...Spacing.mbZero}}>
 
                     </Row>
                     <Row style={{...Spacing.ptFive, ...Spacing.pbZero}}>
@@ -171,6 +256,41 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
                         </Button>
                     </Row>
                 </Grid>
+                <Modal 
+                    isVisible={isModalVisible}
+                    onBackdropPress={() => toggleModal()}
+                    backdropOpacity={0}
+                    backdropColor={'#ffffff'}
+                >
+                    <Col style={{justifyContent: 'flex-end'}}>
+                        <Row style={{height: 311, backgroundColor: '#ffffff', marginBottom: -18, borderRadius: 5, ...Spacing.pxFive, ...Spacing.pyFive}}>
+                            <Form style={{width: '100%'}}>
+                                <Text style={{...Font.fsFive, ...Font.fStyleBold}}>
+                                    Contact Details
+                                </Text>
+                                <Item regular style={{width: '100%', borderRadius: 5, ...Spacing.mtFive, ...Spacing.mbZero}}>
+                                    <Input value={dataBooking.fullname_guest} onChangeText={fullname_guest => setDataBooking({...dataBooking, fullname_guest: fullname_guest})} placeholder='Name' />
+                                </Item>
+                                <Text style={{...Font.fsTwo, ...Color.darkGrey}}>
+                                    As on ID/passport/driver's license (without degree)
+                                </Text>
+                                <Item style={{width: '100%', borderRadius: 5, ...Spacing.mtFive, ...Spacing.mbZero}} regular>
+                                    <Input value={dataBooking.address_guest} onChangeText={address_guest => setDataBooking({...dataBooking, address_guest: address_guest})} placeholder='Address' />
+                                </Item>
+                                <Text style={{...Font.fsTwo, ...Color.darkGrey}}>
+                                    Address
+                                </Text>
+                                <Item style={{width: '100%', borderColor: '#ffffff', ...Spacing.mtFive, ...Spacing.mbZero}} regular>
+                                    <Button rounded onPress={toggleModal} style={{width: '100%', ...Color.bgPrimary}} block>
+                                        <Text style={{width: '100%', textAlign: 'center', ...Font.fsThree, ...Font.fStyleLight, ...Color.light}}>
+                                            Save
+                                        </Text>
+                                    </Button>
+                                </Item>
+                            </Form>
+                        </Row>
+                    </Col>
+                </Modal>
             </Content>
         </Container>
     )
@@ -178,10 +298,12 @@ const FormBooking = ({ navigation, route, booking, onBookingRoom }) => {
 
 const mapStateToProps = (state) => {
     return{
+        user: state.user, 
+        myProfile: state.userProfile,
         booking: state.booking
     }
 }
 
-const mapDispatchToProps = { onBookingRoom }
+const mapDispatchToProps = { getMyProfile, onBookingRoom }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormBooking)

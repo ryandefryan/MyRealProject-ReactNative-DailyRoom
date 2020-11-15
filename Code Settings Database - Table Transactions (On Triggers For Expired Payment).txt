@@ -1,0 +1,3 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `transactions_BEFORE_INSERT` BEFORE INSERT ON `transactions` FOR EACH ROW BEGIN
+	SET NEW.`expired_at` = NOW() + INTERVAL 3 MINUTE;
+END

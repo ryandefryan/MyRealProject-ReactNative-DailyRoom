@@ -1,6 +1,7 @@
 const db = require('./../database/MySQL.js');
 const dbAsync = require('./../database/MySQLAsync.js');
 const redis = require('./../database/Redis.js');
+const client = require('./../database/Redis.js');
 const jwt = require('jsonwebtoken');
 
 const sendNotification = require('./../helpers/SendNotification.js');
@@ -47,7 +48,7 @@ module.exports = {
                                 if(err) throw err
                                 
                                 sqlQuery3 = `CREATE EVENT auto_cancel_transaction_${insertResult.insertId}
-                                             ON SCHEDULE AT DATE_ADD(NOW(), INTERVAL 15 SECOND)
+                                             ON SCHEDULE AT DATE_ADD(NOW(), INTERVAL 3 MINUTE)
                                              DO
                                                 UPDATE transactions set status = 'Cancelled' where id = ${insertResult.insertId};`
                                 db.query(sqlQuery3, (err, createEventResult) => {
@@ -96,22 +97,44 @@ module.exports = {
     onPaymentApproved : (req, res) => {
         let data = req.body
 
-        db.query('UPDATE transactions SET status = "Success" WHERE id = ? AND user_id = ?', [data.id, req.dataToken.id], (err, result) => {
+        db.query('UPDATE transactions SET status = "Success" WHERE id = ? AND user_id = ?', [data.id, req.dataToken.id], (err, updateResult) => {
             try {
                 if(err) throw err
 
-                db.query(`DROP event auto_cancel_transaction_${data.id}`, (err, result) => {
+                db.query(`DROP event auto_cancel_transaction_${data.id}`, (err, dropEventResult) => {
                     try {
                         if(err) throw err
 
-                        let dataNotif = {
-                            app_id: "3c2ef2b0-f8a3-4963-9bfc-995589f3dcd5",
-                            contents: {"en": "Transaction Approved"},
-                            channel_for_external_user_ids: "push",
-                            include_external_user_ids: [data.token]
-                        }
-
-                        sendNotification(dataNotif, res)
+                        sqlQuery = `SELECT t.id, u.id AS user_id, h.name AS hotel_name, r.hotel_id, r.name AS room_name, r.price AS room_price, t.check_in AS check_in, t.check_out AS check_out, t.expired_at AS expired_at, t.status AS status, t.total AS total, GROUP_CONCAT(DISTINCT(ri.url)) AS room_image_url FROM transactions t
+                                     JOIN rooms r ON t.room_id = r.id
+                                     JOIN room_images ri ON t.room_id = ri.room_id
+                                     JOIN hotels h ON r.hotel_id = h.id
+                                     JOIN users u ON t.user_id = u.id
+                                     WHERE u.id = ?
+                                     GROUP BY t.id
+                                     ORDER BY t.created_at DESC;`
+                        
+                        db.query(sqlQuery, req.dataToken.id, (err, dataResult) => {
+                            try {
+                                if(err) throw err
+                                
+                                let dataNotif = {
+                                    app_id: "3c2ef2b0-f8a3-4963-9bfc-995589f3dcd5",
+                                    contents: {"en": "Transaction Success. Check Your e-Ticket Now!"},
+                                    channel_for_external_user_ids: "push",
+                                    include_external_user_ids: [data.token],
+                                    url : "dailyroomApp://Bookings"
+                                }
+        
+                                sendNotification(dataNotif, res)
+                            } catch (error) {
+                                res.json({
+                                    error : true,
+                                    message : error.message,
+                                    detail : error
+                                })
+                            }
+                        })
                     } catch (error) {
                         console.log(error)
                     }
@@ -125,22 +148,55 @@ module.exports = {
     
     
     getMyBookings : (req, res) => {
-        db.query(`SELECT t.id, u.id as user_id, h.name as hotel_name, r.hotel_id, r.name as room_name, r.price as room_price, t.check_in as check_in, t.check_out as check_out, t.expired_at as expired_at, t.status as status, GROUP_CONCAT(DISTINCT(ri.url)) AS room_image_url FROM transactions t
-                    JOIN rooms r ON t.room_id = r.id
-                    JOIN room_images ri ON t.room_id = ri.room_id
-                    JOIN hotels h ON r.hotel_id = h.id
-                    JOIN users u ON t.user_id = u.id
-                    WHERE u.id = ?
-                    GROUP BY t.id
-                    ORDER BY t.created_at DESC;`, req.dataToken.id, (err, result) => {
+        let redisKey = 'transactions_user_id' + req.dataToken.id
+
+        client.get(redisKey, (err, redisData) => {
             try {
-                if(err) throw err
-                
-                res.send({
-                    error: false,
-                    message : 'Fetch Data Success',
-                    data : result
-                })
+                if(err) throw error
+
+                if(redisData){
+                    res.send({
+                        error: false,
+                        message : 'Fetch Data From Redis Success',
+                        data : JSON.parse(redisData)
+                    })
+                }else{
+                    db.query(`SELECT t.id, u.id as user_id, h.name as hotel_name, r.hotel_id, r.name as room_name, r.price as room_price, t.check_in as check_in, t.check_out as check_out, t.expired_at as expired_at, t.status as status, GROUP_CONCAT(DISTINCT(ri.url)) AS room_image_url FROM transactions t
+                                JOIN rooms r ON t.room_id = r.id
+                                JOIN room_images ri ON t.room_id = ri.room_id
+                                JOIN hotels h ON r.hotel_id = h.id
+                                JOIN users u ON t.user_id = u.id
+                                WHERE u.id = ?
+                                GROUP BY t.id
+                                ORDER BY t.created_at DESC;`, req.dataToken.id, (err, result) => {
+                        try {
+                            if(err) throw err
+                            
+                            redis.set(redisKey, JSON.stringify(result), (err, ok) => {
+                                try {
+                                    if(err) throw err
+                                    
+                                    res.send({
+                                        error: false,
+                                        message : 'Fetch Data From Database Success',
+                                        data : result
+                                    })
+                                } catch (error) {
+                                    res.send({
+                                        error: true,
+                                        message : error.message
+                                    })
+                                }
+                            })
+                        } catch (error) {
+                            res.send({
+                                error: true,
+                                message : error.message
+                            })
+                        }
+                    })
+                    
+                }
             } catch (error) {
                 res.send({
                     error: true,

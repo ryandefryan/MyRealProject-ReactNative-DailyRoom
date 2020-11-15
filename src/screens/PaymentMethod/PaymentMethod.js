@@ -16,7 +16,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const PaymentMethod = ({ navigation, user, booking, getMyBookings }) => {
 
-    const [countDownExpired, setCountDownExpired] = useState(15)
+    const [countDownExpired, setCountDownExpired] = useState(180)
     const [expired, setExpired] = useState(false)
 
     const onBookingCancelled = () => {
@@ -77,7 +77,7 @@ const PaymentMethod = ({ navigation, user, booking, getMyBookings }) => {
                             </Text>
                         :
                             <Text style={{...Spacing.mrOne, ...Font.fsTwo, ...Color.light}}>
-                                Complete Your Booking In 
+                                Complete Your Payment Within
                             </Text>
                         }
                             <CountDown
